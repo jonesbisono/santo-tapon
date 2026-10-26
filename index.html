@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Santo Tapón — Blog de Fotos de Santo Domingo</title>
+  <meta name="description" content="Colección fotográfica de la ciudad de Santo Domingo capturada desde el celular. Título y descripción en no más de 250 caracteres por foto.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Encabezado Ultra Minimalista -->
+  <header class="site-header">
+    <div class="header-content">
+      <h1 class="site-title">Santo Tapón</h1>
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar tema (claro / oscuro)" title="Cambiar tema">
+        <!-- Icono Sol (Modo Claro) -->
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <!-- Icono Luna (Modo Oscuro) -->
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal de la Galería -->
+  <main class="main-container">
+    <div id="gallery" class="photo-gallery" role="feed" aria-label="Galería de fotos de Santo Domingo">
+      <!-- Las fotos se inyectan dinámicamente desde js/photos.js -->
+    </div>
+    <div id="empty-state" class="empty-state" style="display: none;">
+      <p>No hay fotos cargadas aún.</p>
+      <span>Agrega tus fotos en <code>js/photos.js</code>.</span>
+    </div>
+  </main>
+
+  <!-- Visor a Pantalla Completa (Lightbox) -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="lightbox-overlay"></div>
+    <div class="lightbox-wrapper">
+      <button id="lightbox-close" class="lightbox-btn close-btn" aria-label="Cerrar visor" title="Cerrar (Esc)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <button id="lightbox-prev" class="lightbox-btn prev-btn" aria-label="Foto anterior" title="Anterior (Flecha izquierda)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <button id="lightbox-next" class="lightbox-btn next-btn" aria-label="Foto siguiente" title="Siguiente (Flecha derecha)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
+      <div class="lightbox-content">
+        <div class="lightbox-image-container">
+          <img id="lightbox-img" src="" alt="" class="lightbox-image">
+        </div>
+        <div class="lightbox-info">
+          <h2 id="lightbox-title" class="lightbox-title"></h2>
+          <p id="lightbox-desc" class="lightbox-desc"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/photos.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
