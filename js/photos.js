@@ -17,7 +17,7 @@
  * },
  */
 
-window.SANTO_TAPON_PHOTOS = [
+const photos = [
   {
     id: "foto-1",
     title: "Foto 1",
@@ -37,3 +37,10 @@ window.SANTO_TAPON_PHOTOS = [
     description: "Texto descriptivo pendiente (hasta 250 caracteres)."
   }
 ];
+
+if (typeof window !== 'undefined') {
+  window.SANTO_TAPON_PHOTOS = photos;
+}
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = photos;
+}
