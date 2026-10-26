@@ -1,6 +1,7 @@
 /**
  * ============================================================================
  * SANTO TAPÓN — Lógica de la Aplicación
+ * Diseño Editorial de Una Sola Página con Disposición Staggered
  * ============================================================================
  */
 
@@ -11,14 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================================
-   1. GESTIÓN DE TEMA (MODO OSCURO / CLARO)
+   1. GESTIÓN DE TEMA (NEGRO SÓLIDO / BEIGE CLARO)
    ========================================================================== */
 function initTheme() {
   const toggleBtn = document.getElementById('theme-toggle');
   const storedTheme = localStorage.getItem('st_theme');
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-  // Tema inicial
+  // Tema inicial: Negro Sólido (dark) o Beige Claro (light)
   const activeTheme = storedTheme || (systemPrefersDark ? 'dark' : 'light');
   document.documentElement.setAttribute('data-theme', activeTheme);
 
@@ -41,7 +42,7 @@ function initTheme() {
 }
 
 /* ==========================================================================
-   2. RENDERIZADO DE LA GALERÍA
+   2. RENDERIZADO DE LA GALERÍA STAGGERED (UNA SOLA PÁGINA)
    ========================================================================== */
 let photosList = [];
 
@@ -59,26 +60,15 @@ function initGallery() {
 
   if (emptyState) emptyState.style.display = 'none';
   if (gallery) {
-    gallery.style.display = 'block';
+    gallery.style.display = 'flex';
     gallery.innerHTML = '';
 
-    // Placeholder SVG elegante en caso de que la imagen aún no haya sido subida
-    const fallbackSvg = encodeURIComponent(
-      `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="450" viewBox="0 0 600 450">
-        <rect width="100%" height="100%" fill="#1a1c23"/>
-        <circle cx="300" cy="200" r="48" fill="#2d3139"/>
-        <path d="M280 200 L320 200 M300 180 L300 220" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
-        <text x="50%" y="280" font-family="-apple-system, sans-serif" font-size="16" fill="#9ca3af" text-anchor="middle">Imagen pendiente en images/</text>
-      </svg>`
-    );
-    const fallbackDataUri = `data:image/svg+xml;utf8,${fallbackSvg}`;
-
     photosList.forEach((photo, index) => {
-      const card = document.createElement('article');
-      card.className = 'photo-card';
-      card.setAttribute('role', 'article');
-      card.setAttribute('tabindex', '0');
-      card.dataset.index = index;
+      const section = document.createElement('section');
+      const isReversed = index % 2 !== 0; // Alternado: pares a la izquierda, impares a la derecha
+      section.className = `photo-row ${isReversed ? 'is-reversed' : ''}`;
+      section.setAttribute('role', 'article');
+      section.dataset.index = index;
 
       // Validación de longitud máxima estricta de 250 caracteres
       let cleanDesc = (photo.description || '').trim();
@@ -86,31 +76,34 @@ function initGallery() {
         cleanDesc = cleanDesc.slice(0, 247) + '...';
       }
 
-      card.innerHTML = `
-        <div class="card-media">
+      const formattedNumber = String(index + 1).padStart(2, '0');
+
+      section.innerHTML = `
+        <div class="photo-media" tabindex="0" role="button" aria-label="Ver foto a pantalla completa: ${escapeHtml(photo.title || '')}">
           <img 
-            class="card-img" 
+            class="photo-img" 
             src="${photo.image}" 
-            alt="${photo.title || 'Foto de Santo Domingo'}"
-            loading="lazy"
-            onerror="this.onerror=null; this.src='${fallbackDataUri}';"
+            alt="${escapeHtml(photo.title || 'Fotografía de Santo Domingo')}"
+            loading="${index === 0 ? 'eager' : 'lazy'}"
           >
         </div>
-        <div class="card-body">
-          <h2 class="card-title">${escapeHtml(photo.title || 'Sin título')}</h2>
-          <p class="card-description">${escapeHtml(cleanDesc)}</p>
+        <div class="photo-info">
+          <span class="photo-number">${formattedNumber} / Santo Domingo</span>
+          <h2 class="photo-title">${escapeHtml(photo.title || 'Sin título')}</h2>
+          <p class="photo-description">${escapeHtml(cleanDesc)}</p>
         </div>
       `;
 
-      card.addEventListener('click', () => openLightbox(index));
-      card.addEventListener('keydown', (e) => {
+      const mediaEl = section.querySelector('.photo-media');
+      mediaEl.addEventListener('click', () => openLightbox(index));
+      mediaEl.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           openLightbox(index);
         }
       });
 
-      gallery.appendChild(card);
+      gallery.appendChild(section);
     });
   }
 }
@@ -160,8 +153,8 @@ function initLightbox() {
   function handleSwipe() {
     const diff = touchEndX - touchStartX;
     if (Math.abs(diff) > 50) {
-      if (diff > 0) navigateLightbox(-1); // Deslizar a la derecha -> anterior
-      else navigateLightbox(1);           // Deslizar a la izquierda -> siguiente
+      if (diff > 0) navigateLightbox(-1);
+      else navigateLightbox(1);
     }
   }
 }
@@ -175,7 +168,7 @@ function openLightbox(index) {
 
   lightbox.classList.add('is-open');
   lightbox.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden'; // Bloquear scroll del fondo
+  document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
@@ -203,7 +196,7 @@ function updateLightboxContent() {
 
   if (imgEl) {
     imgEl.src = item.image;
-    imgEl.alt = item.title || 'Foto de Santo Domingo';
+    imgEl.alt = item.title || 'Fotografía de Santo Domingo';
   }
   if (titleEl) titleEl.textContent = item.title || 'Sin título';
   if (descEl) {
@@ -215,7 +208,7 @@ function updateLightboxContent() {
   }
 }
 
-// Utilidad para evitar inyección de HTML
+// Utilidad para sanitizar texto
 function escapeHtml(text) {
   const map = {
     '&': '&amp;',

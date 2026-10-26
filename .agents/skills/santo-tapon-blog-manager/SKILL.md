@@ -12,6 +12,17 @@ Este skill rige el mantenimiento, actualización y publicación del blog de foto
 
 ---
 
+## 🎨 Especificaciones Visuales y de Diseño
+
+1. **Diseño de Una Sola Página Staggered (Alternado)**:
+   - Las fotos se presentan en un flujo continuo y elegante de una sola página.
+   - Disposición **alternada (staggered)**: en pantallas medianas y grandes, una foto va a la izquierda con su título y texto a la derecha, y la siguiente foto va a la derecha con su título y texto a la izquierda. En dispositivos móviles se adapta verticalmente con la imagen arriba y el texto debajo.
+2. **Paleta de Colores Oficial**:
+   - **Modo Oscuro (Dark Mode)**: **Negro sólido puro (`#000000`)**, con tipografía blanca y detalles sutiles en gris.
+   - **Modo Claro (Light Mode)**: **Beige claro cálido (`#f5f0ea`)**, evocando papel editorial de fotografía, con tipografía en carbón oscuro.
+
+---
+
 ## 📁 Ubicación del Álbum de Origen (OneDrive)
 
 * **Ruta de Fotos del Teléfono**: `C:\Users\gjone\OneDrive\Pictures\Santo Tapón`
@@ -19,7 +30,7 @@ Este skill rige el mantenimiento, actualización y publicación del blog de foto
 
 ---
 
-## 📌 Reglas Fundamentales de Diseño y Contenido
+## 📌 Reglas Fundamentales de Contenido
 
 1. **Formato Estricto por Foto**:
    - Cada publicación contiene **exclusivamente**:
@@ -34,7 +45,7 @@ Este skill rige el mantenimiento, actualización y publicación del blog de foto
    - Si la descripción supera los 250 caracteres, avisar al usuario y proponer una versión ajustada que mantenga la esencia sin exceder el límite.
 
 3. **Orden Cronológico**:
-   - Las fotos más recientes **siempre deben colocarse al inicio** del arreglo `window.SANTO_TAPON_PHOTOS` en `js/photos.js`.
+   - Las fotos más recientes **siempre deben colocarse al inicio** del arreglo `photos` en `js/photos.js`.
 
 ---
 
