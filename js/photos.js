@@ -11,6 +11,12 @@
 
 const photos = [
   {
+    id: "los-ingenieros",
+    title: "Los Ingenieros",
+    image: "images/los-ingenieros.jpg",
+    description: "En las ruinas de una promesa de hormigón que nunca fue, los verdaderos dueños de la obra inspeccionan el vacío: vigilantes mudos que reclaman la altura que el progreso olvidó."
+  },
+  {
     id: "tregua",
     title: "Tregua",
     image: "images/tregua.jpg",
