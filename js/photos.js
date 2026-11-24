@@ -11,6 +11,12 @@
 
 const photos = [
   {
+    id: "santuario",
+    title: "Santuario",
+    image: "images/santuario.jpg",
+    description: "Hacen falta siglos para forjar un tronco así, pero apenas un pedazo de papel para sostener el mundo. La fragilidad humana arrodillada ante lo eterno."
+  },
+  {
     id: "los-ingenieros",
     title: "Los Ingenieros",
     image: "images/los-ingenieros.jpg",
